@@ -1,20 +1,20 @@
 
 variable "server_count" {
   type        = number
-  default     = 3
+  default     = 1
   description = "The total number of VMs to create"
 }
 
 variable "name" {
   type        = string
   description = "The name to assign to resources in this module"
-  default     = "super-webserver"
+  default     = "jenkins"
 }
 
 variable "environment" {
   type        = string
   description = "The environment to assign to resource in this module"
-  default     = "prod"
+  default     = "production"
 }
 
 variable "tags" {
@@ -25,7 +25,7 @@ variable "tags" {
 
 variable "instance_type" {
   type    = string
-  default = "t2.micro"
+  default = "t3.small"
 }
 
 variable "root_volume_size" {
