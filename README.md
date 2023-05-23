@@ -1,5 +1,8 @@
-# terraform-jenkins-server
-TF code for deploying a Jenkins server.
+# terraform-jenkins-ubuntu
+TF code for deploying a Jenkins controller on a server running the Ubuntu operating system in Amazon Web Services.
+- [Jenkins](https://www.jenkins.io/)
+- [Ubuntu Server](https://ubuntu.com/download/server)
+- [Amazon Web Services](https://aws.amazon.com/)
 
 ## Set Up
 > **Warning**: If you cloned or forked this repo, you will need to edit the following files to add your own values:
