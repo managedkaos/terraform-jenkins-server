@@ -38,7 +38,7 @@ resource "aws_iam_policy" "iam" {
           "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${var.name}/${var.environment}/*",
           "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${var.name}/${var.environment}"
         ]
-      }    
+      }
     ]
   })
 }

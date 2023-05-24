@@ -9,7 +9,8 @@
 			"extensions": [
 				"hashicorp.terraform",
 				"amazonwebservices.aws-toolkit-vscode",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	}
