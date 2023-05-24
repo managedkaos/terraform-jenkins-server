@@ -29,7 +29,10 @@ TF code for deploying a Jenkins controller on a server running the Ubuntu operat
 ## Get the Initial Admin Password
 1. Run the followig command in the codespace:
 
-        aws ssm get-parameter --region=YOUR_REGION --name "/jenkins/production/initialAdminPassword" --query="Parameter.Value"
+        aws ssm get-parameter \
+                --name "/jenkins-production-0/initialAdminPassword" \
+                --query="Parameter.Value" \
+                --output=text
 
 ## Clean Up
 1. Run the workflow [99-Destroy Resources](./.github/workflows/destroy-resources.yml).
