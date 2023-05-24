@@ -96,7 +96,11 @@ jobs:
             }' plan.txt
 
             awk '/Terraform used the selected/{ next } /will be/ || /must be/ {print "|" $5 "|" $2 "|"; next} /Plan:/{ print "## " $0; next }' plan.txt \
-              | sed -e 's/created/:white_check_mark: create/' -e 's/destroyed/:bangbang: destroy/' -e 's/replaced/:recycle: replace/'
+              | sed \
+                  -e 's/created/:white_check_mark: create/' \
+                  -e 's/destroyed/:bangbang: destroy/' \
+                  -e 's/replaced/:recycle: replace/' \
+                  -e 's/updated/::recycle: update/'
           } > plan.md
           cat plan.md >> $GITHUB_STEP_SUMMARY
 

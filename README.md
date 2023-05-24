@@ -19,33 +19,20 @@ TF code for deploying a Jenkins controller on a server running the Ubuntu operat
 
 ## Deploy the Jenkins server
 1. Run the [00-Terraform Pipeline](./.github/workflows/terraform-pipeline.yml) workflow.
-1. Review the plan created by the `Terraform Plan` job and confirm that four resources will be created:
-
-    1. ✅ create	aws_instance.ec2["jenkins-production-0"]
-    1. ✅ create	aws_security_group.ec2
-    1. ✅ create	aws_security_group_rule.ec2-egress
-    1. ✅ create	aws_security_group_rule.ec2-http
-
+1. Review the plan created by the `Terraform Plan` job and confirm the resources that will be created.
 1. Reivew and approve the deployment to start the `Terraform Apply` job.
 1. Wait for the deployment to complete.
 1. Select the URL for `jenkins-production-0` under the "Apply complete!" message.
 1. If the page displays "Welcome to nginx!", wait for a few minutes until the Jenkins software installation completes.
 1. Refresh the page and you should be prompted for the Initial Admin Password.
 
-## TODO: Figure out why the system log is not being displayed
+## Get the Initial Admin Password
+1. Run the followig command in the codespace:
 
-        INSTANCE_ID=$(aws ec2 describe-instances --region=YOUR_REGION --filters Name=instance-state-name,Values=running --query='Reservations[].Instances[].InstanceId' --output=text)
-
-        aws ec2 --region=YOUR_REGION get-console-output --instance-id="${INSTANCE_ID}" --output=text
+        aws ssm get-parameter --region=YOUR_REGION --name "/jenkins/production/initialAdminPassword" --query="Parameter.Value"
 
 ## Clean Up
 1. Run the workflow [99-Destroy Resources](./.github/workflows/destroy-resources.yml).
-1. Review the plan created by the `Terraform Plan` job and confirm that four resources will be destroyed:
-
-    1. ‼️ destroy aws_instance.ec2["jenkins-production-0"]
-    1. ‼️ destroy aws_security_group.ec2
-    1. ‼️ destroy aws_security_group_rule.ec2-egress
-    1. ‼️ destroy aws_security_group_rule.ec2-http
-
+1. Review the plan created by the `Terraform Plan` job and confirm the resources that will be destroyed
 1. Reivew and approve the deployment to start the `Terraform Apply` job.
 1. Wait for the deployment to complete.
