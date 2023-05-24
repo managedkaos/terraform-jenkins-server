@@ -5,4 +5,10 @@ resource "aws_ssm_parameter" "password" {
   value       = "initialAdminPassword"
   overwrite   = true
   tags        = merge(var.tags, local.tags)
+
+  lifecycle {
+    ignore_changes = [
+      value
+    ]
+  }
 }
