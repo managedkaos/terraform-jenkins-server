@@ -14,7 +14,7 @@ variable "name" {
 variable "environment" {
   type        = string
   description = "The environment to assign to resource in this module"
-  default     = "production"
+  default     = "ubuntu"
 }
 
 variable "tags" {
