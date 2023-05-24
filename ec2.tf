@@ -33,8 +33,9 @@ resource "aws_instance" "ec2" {
   instance_type               = var.instance_type
   user_data                   = local.user_data
   vpc_security_group_ids      = [aws_security_group.ec2.id]
-  associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.iam.name
   tags                        = merge(local.tags, { Name = each.value.name })
+  associate_public_ip_address = true
 
   root_block_device {
     volume_size = var.root_volume_size
