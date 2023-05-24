@@ -4,7 +4,7 @@ locals {
   tags = {
     Name        = var.name
     Environment = var.environment
-    Designation          = "${var.name}-${var.environment}"
+    Designation = "${var.name}-${var.environment}"
     Terraform   = true
   }
 }

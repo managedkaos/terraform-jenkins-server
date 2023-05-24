@@ -32,7 +32,8 @@ resource "aws_iam_policy" "iam" {
         "Effect" : "Allow",
         "Action" : [
           "ssm:GetParametersByPath",
-          "ssm:GetParameters"
+          "ssm:GetParameters",
+          "ssm:PutParameter"
         ],
         "Resource" : [
           "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${var.name}/${var.environment}/*",

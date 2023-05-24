@@ -1,6 +1,9 @@
 plan refresh init validate output:
 	terraform $(@)
 
+list:
+	terraform state list
+
 format:
 	terraform fmt
 
