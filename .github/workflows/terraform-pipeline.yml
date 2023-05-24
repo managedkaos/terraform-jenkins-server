@@ -100,7 +100,7 @@ jobs:
                   -e 's/created/:white_check_mark: create/' \
                   -e 's/destroyed/:bangbang: destroy/' \
                   -e 's/replaced/:recycle: replace/' \
-                  -e 's/updated/::recycle: update/'
+                  -e 's/updated/:recycle: update/'
           } > plan.md
           cat plan.md >> $GITHUB_STEP_SUMMARY
 
