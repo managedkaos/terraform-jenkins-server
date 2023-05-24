@@ -1,4 +1,4 @@
-plan refresh init validate output:
+plan refresh init validate output fmt:
 	terraform $(@)
 
 list:

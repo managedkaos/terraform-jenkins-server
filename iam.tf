@@ -1,6 +1,7 @@
 resource "aws_iam_role" "iam" {
-  name_prefix = "${var.name}-${var.environment}-"
-  tags        = local.tags
+  for_each    = local.host
+  name_prefix = "${each.value.name}-"
+  tags        = merge(local.tags, { Name = each.value.name })
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -17,13 +18,15 @@ resource "aws_iam_role" "iam" {
 }
 
 resource "aws_iam_instance_profile" "iam" {
-  name_prefix = "${var.name}-"
-  role        = aws_iam_role.iam.name
+  for_each    = local.host
+  name_prefix = "${each.value.name}-"
+  role        = aws_iam_role.iam[each.value.name].name
 }
 
 resource "aws_iam_policy" "iam" {
-  name_prefix = "${var.name}-${var.environment}-"
-  tags        = local.tags
+  for_each    = local.host
+  name_prefix = "${each.value.name}-"
+  tags        = merge(local.tags, { Name = each.value.name })
   path        = "/"
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -36,8 +39,8 @@ resource "aws_iam_policy" "iam" {
           "ssm:PutParameter"
         ],
         "Resource" : [
-          "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${var.name}/${var.environment}/*",
-          "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${var.name}/${var.environment}"
+          "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${each.value.name}/*",
+          "arn:aws:ssm:${data.aws_region.default.name}:${data.aws_caller_identity.id.account_id}:parameter/${each.value.name}"
         ]
       }
     ]
@@ -45,11 +48,13 @@ resource "aws_iam_policy" "iam" {
 }
 
 resource "aws_iam_role_policy_attachment" "iam" {
-  role       = aws_iam_role.iam.name
-  policy_arn = aws_iam_policy.iam.arn
+  for_each   = local.host
+  role       = aws_iam_role.iam[each.value.name].name
+  policy_arn = aws_iam_policy.iam[each.value.name].arn
 }
 
 resource "aws_iam_role_policy_attachment" "ssm" {
-  role       = aws_iam_role.iam.name
+  for_each   = local.host
+  role       = aws_iam_role.iam[each.value.name].name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }

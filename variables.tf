@@ -44,14 +44,4 @@ locals {
     name  = "${join("-", [var.name, var.environment, i])}"
     }
   }
-
-  # TODO: This needs to be configured so each host has its own user_data
-  # TODO: Other resources will need to be updated as well
-  # TODO: IAM roles, EC2, etc...
-  user_data = templatefile("${path.module}/user_data.template",
-    {
-      name        = var.name
-      environment = var.environment
-  })
-
 }

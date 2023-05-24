@@ -31,11 +31,16 @@ resource "aws_instance" "ec2" {
   for_each                    = local.host
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
-  user_data                   = local.user_data
   vpc_security_group_ids      = [aws_security_group.ec2.id]
-  iam_instance_profile        = aws_iam_instance_profile.iam.name
+  iam_instance_profile        = aws_iam_instance_profile.iam[each.value.name].name
   tags                        = merge(local.tags, { Name = each.value.name })
   associate_public_ip_address = true
+
+  user_data = templatefile("${path.module}/user_data.template",
+    {
+      name = each.value.name
+    }
+  )
 
   root_block_device {
     volume_size = var.root_volume_size

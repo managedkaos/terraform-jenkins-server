@@ -130,7 +130,7 @@ echo
 echo
 
 aws ssm put-parameter \
-    --name "/${name}/${environment}/initialAdminPassword" \
+    --name "/${name}/initialAdminPassword" \
     --type "String" \
     --value "$(cat /var/lib/jenkins/secrets/initialAdminPassword)" \
     --overwrite
