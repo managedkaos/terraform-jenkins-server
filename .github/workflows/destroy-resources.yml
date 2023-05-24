@@ -10,7 +10,6 @@ jobs:
   plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    concurrency: Production
 
     steps:
       - name: Configure AWS Credentials
